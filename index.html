@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HilecimApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a4de7;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --card-bg: white;
+            --footer-bg: #2c3e50;
+            --footer-text: white;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: opacity 0.3s ease;
+        }
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        h1, h2, h3 {
+            color: var(--secondary-color);
+        }
+        .hero h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 3rem;
+            margin-top: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .feature-item {
+            background-color: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            padding: 1rem;
+            background-color: var(--bg-color);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question:hover {
+            background-color: #e0e0e0;
+        }
+        .faq-question::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: var(--card-bg);
+            border-radius: 0 0 5px 5px;
+        }
+        .faq-answer.show {
+            max-height: 500px;
+            padding: 1rem;
+        }
+        .theme-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .theme-switch button {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        .theme-switch button:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        body.dark-theme {
+            --primary-color: #6c5ce7;
+            --secondary-color: #ecf0f1;
+            --accent-color: #e74c3c;
+            --bg-color: #2c3e50;
+            --text-color: #ecf0f1;
+            --card-bg: #34495e;
+            --footer-bg: #1a252f;
+            --footer-text: #ecf0f1;
+        }
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .discord-widget {
+            margin-top: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        .stat-item {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .testimonials {
+            margin-top: 3rem;
+        }
+        .testimonial-item {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .testimonial-author {
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">HilecimApp</div>
+            <div class="nav-links">
+                <a href="#features">Özellikler</a>
+                <a href="#stats">İstatistikler</a>
+                <a href="#testimonials">Yorumlar</a>
+                <a href="#faq">SSS</a>
+            </div>
+        </nav>
+        <div class="theme-switch">
+            <button onclick="toggleTheme()"><i class="fas fa-adjust"></i> Tema</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>HilecimApp ile Geleceğe Adım Atın</h1>
+            <p>Tüm ihtiyaçlarınız için profesyonel, hızlı ve güvenilir çözüm</p>
+            <a href="https://ay.live/4Mj9Zl" class="cta-btn">Ücretsiz İndir</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="features" class="section">
+            <h2>Özellikler</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Hepsi Bir Arada</h3>
+                    <p>Tüm ihtiyaçlarınız tek bir yazılımda.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-user-friends"></i></div>
+                    <h3>Kolay Kullanım</h3>
+                    <p>Sezgisel arayüz ile herkes kolayca kullanabilir.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Hızlı Performans</h3>
+                    <p>Optimize edilmiş kod ile yüksek hız.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Güvenlik Odaklı</h3>
+                    <p>Verileriniz güvende, içiniz rahat.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="stats" class="stats">
+            <div class="stat-item">
+                <div class="stat-number">1K+</div>
+                <div>Mutlu Kullanıcı</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99%</div>
+                <div>Memnuniyet Oranı</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div>Destek</div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <h2>Kullanıcı Yorumları</h2>
+            <div class="testimonial-item">
+                <p>"Aşırı güvenilir çok iyi ilgilendiler +ref"</p>
+                <div class="testimonial-author">- Phobex.</div>
+            </div>
+            <div class="testimonial-item">
+                <p>"On numara hizmet şu ana kadar kullandığım hiçbir hilede sorun çıkmadı vip de ödediğim parayı sonuna kadar hakediyor teşekkürler"</p>
+                <div class="testimonial-author">- Kairef.</div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <h2>Sıkça Sorulan Sorular</h2>
+            <div class="faq-item">
+                <div class="faq-question">HilecimApp'ı nasıl indirebilirim?</div>
+                <div class="faq-answer">Sayfanın üst kısmındaki "Ücretsiz İndir" butonuna tıklayarak yazılımı kolayca indirebilirsiniz.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Yazılım hangi işletim sistemleriyle uyumlu?</div>
+                <div class="faq-answer">HilecimApp, Windows 10, Windows 11 işletim sistemleriyle uyumludur.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Yazılımın kullanımı için ücret ödenmesi gerekiyor mu?</div>
+                <div class="faq-answer">Hayır, HilecimApp tamamen ücretsizdir ve herhangi bir gizli ücret içermez.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Virus içeriyormu?</div>
+                <div class="faq-answer">Hayır, HilecimApp tamamen güvenilirdir.</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Bize Katılın</h2>
+            <p>Discord topluluğumuza katılın ve diğer kullanıcılarla etkileşime geçin!</p>
+            <div class="discord-widget">
+                <iframe src="https://discord.com/widget?id=1161352858243965021&theme=dark" width="100%" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 HilecimApp. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                question.classList.toggle('active');
+                const answer = question.nextElementSibling;
+                answer.classList.toggle('show');
+            });
+        });
+    </script>
+</body>
+</html>
